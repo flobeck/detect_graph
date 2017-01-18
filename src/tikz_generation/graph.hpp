@@ -14,11 +14,13 @@ public:
 
     uint tikzpicture_W = 15;
     uint tikzpicture_H = 15;
-        
-    graph_layout(Mat src, vector<Point> positions){
+    vector<vector<bool>> A; 
+
+    graph_layout(Mat src, vector<Point> positions, vector<vector<bool>> A){
         this->W = src.cols;
         this->H = src.rows;
         this->positions = positions;
+        this->A = A;
     }
 
 
@@ -53,7 +55,7 @@ public:
         string header = "\\documentclass{article} \n"
                         "\\usepackage{tikz} \n"
                         "\\begin{document}  \n"
-                        "\\begin{tikzpicture}[place/.style={circle,draw=black,thick}] \n \n";
+                        "\\begin{tikzpicture}[place/.style={circle,auto,draw=black,thick}] \n \n";
 
         string footer = "\\end{tikzpicture} \n"
                         "\\end{document}";
@@ -73,6 +75,18 @@ public:
 
             tex_file << node_str;
         }
+        
+        tex_file << "\\path[draw, thick] \n";
+
+        for(size_t i = 0; i < this->A.size(); i++){
+            for(size_t j = 0; j < this->A[i].size(); j++){
+                if(this->A[i][j]){
+                    tex_file << "(" << to_string(i) << ") edge node {}" << "(" << to_string(j) << ")";
+                }
+            }        
+        }
+        tex_file << ";";   
+
 
         tex_file << footer;
         tex_file.close();

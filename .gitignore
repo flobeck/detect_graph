@@ -1,1 +1,13 @@
-.DS_Store
+*.DS_Store
+*.tex
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2

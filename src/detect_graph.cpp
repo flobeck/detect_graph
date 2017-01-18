@@ -44,8 +44,8 @@ int main(int argc, char *argv[])
 
     ed.trace_all_edges(detected_vertices);
     
-    //graph_layout gl = graph_layout(img, detected_vertices);
-    //gl.generate_file("asd.tex");
+    graph_layout gl = graph_layout(img, detected_vertices, ed.A);
+    gl.generate_file("asd.tex");
 
     waitKey(0);
 
